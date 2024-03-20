@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/course-project-cpm-final",
+    "public": "dist/course-project-cmp-final/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
