@@ -1,0 +1,26 @@
+<ng-template appPlaceholder></ng-template>
+<div class="row mt-3">
+  <div class="col-xs-12 col-md-6 offset-md-3">
+    <!--     <div class="alert alert-danger" *ngIf="error"> -->
+    <!--       <span>{{ error }}</span> -->
+    <!--     </div> -->
+    <div class="spinner-border text-primary text-center" role="status" *ngIf="isLoading">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <form [formGroup]="form" *ngIf="!isLoading">
+      <div class="form-group mb-3">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email">
+      </div>
+      <div class="form-group mb-3">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" formControlName="password">
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" [disabled]="!form.valid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button>
+        |
+        <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

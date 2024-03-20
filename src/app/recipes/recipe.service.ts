@@ -11,30 +11,18 @@ export class RecipeService {
 
   recipesChanged = new Subject<Recipe[]>();
 
-  private _recipes: Recipe[] = [
-    new Recipe(
-      'A Test Recipe 1',
-      'This is simply a test',
-      'https://www.shutterstock.com/image-photo/notepad-your-recipe-herbs-spices-260nw-370298699.jpg',
-      [
-        new Ingredient('Meat', 1),
-        new Ingredient('French Fries', 20),
-      ]),
-    new Recipe(
-      'Big Fat Burger',
-      'OMG - It is big fat tasty',
-      'https://www.shutterstock.com/image-photo/notepad-your-recipe-herbs-spices-260nw-370298699.jpg',
-      [
-        new Ingredient('Buns', 2),
-        new Ingredient('Meat', 1),
-      ]),
-  ];
+  private _recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {
   }
 
   get recipes(): Recipe[] {
     return this._recipes.slice();
+  }
+
+  set recipes(value: Recipe[]) {
+    this._recipes = value;
+    this.recipesChanged.next(this.recipes);
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {

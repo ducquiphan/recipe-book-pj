@@ -9,22 +9,30 @@
     </button>
     <div class="collapse navbar-collapse" [ngbCollapse]="navbarCollapsed">
       <ul ngbNav class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li ngbNavItem class="">
-          <a ngbNavLink class="" [routerLink]="['/recipes']" routerLinkActive="active"
+        <li ngbNavItem *ngIf="user">
+          <a ngbNavLink [routerLink]="['/recipes']" routerLinkActive="active"
              [routerLinkActiveOptions]="{exact: true}"
              (click)="navbarCollapsed = true">Recipes</a>
         </li>
-        <li ngbNavItem class="">
-          <a ngbNavLink class="" [routerLink]="['/shopping-list']" routerLinkActive="active"
+        <li ngbNavItem *ngIf="user">
+          <a ngbNavLink [routerLink]="['/shopping-list']" routerLinkActive="active"
              (click)="navbarCollapsed = true">Shopping List</a>
         </li>
-        <li ngbDropdown ngbNavItem>
+        <li ngbNavItem *ngIf="!user">
+          <a ngbNavLink [routerLink]="['/auth']" routerLinkActive="active"
+             (click)="navbarCollapsed = true">Authenticate</a>
+        </li>
+        <li ngbNavItem *ngIf="user">
+          <a ngbNavLink
+             (click)="navbarCollapsed = true; onLogout()">Logout</a>
+        </li>
+        <li ngbDropdown ngbNavItem *ngIf="user">
           <a ngbDropdownToggle ngbNavLink class=" " routerLinkActive="active" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false"> Manage <span class="caret"></span> </a>
           <ul ngbDropdownMenu>
-            <li><a ngbDropdownItem>Save Data</a></li>
-            <li><a ngbDropdownItem>Fetch Data</a></li>
+            <li><a ngbDropdownItem (click)="onSaveData()" style="cursor: pointer">Save Data</a></li>
+            <li><a ngbDropdownItem style="cursor: pointer" (click)="onFetchData()">Fetch Data</a></li>
           </ul>
         </li>
       </ul>
